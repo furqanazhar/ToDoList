@@ -18,7 +18,7 @@ app.add_middleware(
 API_ROUTE = '/todonotes/v1'
 
 app.include_router(
-    router = note,
+    router = note.router,
     prefix = f'{API_ROUTE}/note',
     tags = ['notes']
 )

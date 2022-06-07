@@ -1,5 +1,4 @@
 from datetime import datetime
-from xmlrpc.client import DateTime
 from pydantic import BaseModel
 from enum import Enum
 
@@ -32,4 +31,4 @@ class Note(BaseModel):
     status: Status = Status.PENDING
     priority: Priority = Priority.NORMAL
     category: Category = Category.MISCELLANEOUS
-    date: DateTime = datetime.now()
+    date: datetime = datetime.now()
