@@ -1,3 +1,4 @@
+from datetime import datetime
 from xmlrpc.client import DateTime
 from pydantic import BaseModel
 from enum import Enum
@@ -28,6 +29,7 @@ class Category(str, Enum):
 class Note(BaseModel):
     name: str
     description: str
-    status: Status = None
-    priority: Priority = None
-    date: DateTime
+    status: Status = Status.PENDING
+    priority: Priority = Priority.NORMAL
+    category: Category = Category.MISCELLANEOUS
+    date: DateTime = datetime.now()
