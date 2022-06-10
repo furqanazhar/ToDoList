@@ -7,27 +7,27 @@ from typing import List
 router = APIRouter()
 
 
-@router.post('/note', response_description = 'Create a new note', response_model = Note)
+@router.post('/notes', response_description='Create a new note', response_model=Note)
 async def create_note(note: Note):
     pass
 
 
-@router.put('/note', response_description = 'Update entire note', response_model = Note)
-async def update_note():
+@router.put('/notes/noteId', response_description='Update entire note', response_model=Note)
+async def update_note(noteId: str):
     pass
 
 
-@router.patch('/note', response_description='Update partial note', response_model= Note)
-async def update_partial_note():
+@router.patch('/notes/noteId', response_description='Update partial note', response_model=Note)
+async def update_partial_note(noteId: str):
     pass
 
 
-@router.delete('/note', response_description='Delete note', response_model = Note)
-async def delete_note():
+@router.delete('/notes/noteId', response_description='Delete note', response_model=Note)
+async def delete_note(noteId: str):
     pass
 
 
-@router.delete('/notes', response_description='Delete multiple notes', response_model = List[Note])
+@router.delete('/notes', response_description='Delete multiple notes', response_model=List[Note])
 async def delete_notes():
     pass
 
@@ -37,6 +37,6 @@ async def get_all_notes():
     pass
 
 
-@router.get('/notes/{note_id}', response_description='Get note', response_model=Note)
-async def get_note(note_id: str):
+@router.get('/notes/noteId', response_description='Get note', response_model=Note)
+async def get_note(noteId: str):
     pass

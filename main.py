@@ -15,12 +15,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-API_ROUTE = '/todonotes/v1'
+API_ROUTE = '/ToDoNotes/v1'
 
 app.include_router(
-    router = note.router,
-    prefix = f'{API_ROUTE}/note',
-    tags = ['notes']
+    router=note.router,
+    prefix=f'{API_ROUTE}',
+    tags=['notes']
 )
 
 if __name__ == "__main__":
