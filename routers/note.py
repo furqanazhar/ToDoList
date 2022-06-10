@@ -11,29 +11,17 @@ async def create_note(note: Note):
     pass
 
 
-<<<<<<< HEAD
-@router.put('/notes/noteId', response_description='Update entire note', response_model=Note)
-=======
 @router.put('/notes/{noteId}', response_description='Update entire note', response_model=Note)
->>>>>>> 7d07ae8 (Change routes naming convention)
 async def update_note(noteId: str):
     pass
 
 
-<<<<<<< HEAD
-@router.patch('/notes/noteId', response_description='Update partial note', response_model=Note)
-=======
 @router.patch('/notes/{noteId}', response_description='Update partial note', response_model=Note)
->>>>>>> 7d07ae8 (Change routes naming convention)
 async def update_partial_note(noteId: str):
     pass
 
 
-<<<<<<< HEAD
-@router.delete('/notes/noteId', response_description='Delete note', response_model=Note)
-=======
 @router.delete('/notes/{noteId}', response_description='Delete specific note', response_model=Note)
->>>>>>> 7d07ae8 (Change routes naming convention)
 async def delete_note(noteId: str):
     pass
 
@@ -48,10 +36,6 @@ async def get_all_notes():
     pass
 
 
-<<<<<<< HEAD
-@router.get('/notes/noteId', response_description='Get note', response_model=Note)
-=======
 @router.get('/notes/{noteId}', response_description='Get specific note', response_model=Note)
->>>>>>> 7d07ae8 (Change routes naming convention)
 async def get_note(noteId: str):
     pass
