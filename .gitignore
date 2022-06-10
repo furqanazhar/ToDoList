@@ -1,3 +1,8 @@
 __pycache__/
+<<<<<<< HEAD
 .vscode/
 .idea/
+=======
+.idea/
+.vscode/
+>>>>>>> 7d07ae8 (Change routes naming convention)
