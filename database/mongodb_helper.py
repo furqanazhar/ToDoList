@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 
 
@@ -23,8 +24,8 @@ class Database:
     async def delete_document_by_attribute(self, collection, data):
         return self.database[collection].delete_many(data).acknowledged
 
-    async def get_document_by_id(self, collection, data):
-        return self.database[collection].find_one(data)
+    async def get_document_by_id(self, collection, _id):
+        return list(self.database[collection].find({'_id': ObjectId(_id)}, {'_id': 0}))
 
     async def get_document_by_attribute(self, collection, data):
         return self.database[collection].find(data)
