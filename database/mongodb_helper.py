@@ -12,8 +12,8 @@ class Database:
         _id = self.database[collection].insert(data)
         return self.database[collection].find_one({'_id': _id}, {'_id': False})
 
-    async def update_document_by_id(self, collection, data):
-        return self.database[collection].update_one(data).acknowledged
+    async def update_document_by_id(self, collection, _id, data):
+        return self.database[collection].update_one({'_id': ObjectId(_id)}, {'$set': data}).acknowledged
 
     async def update_document_by_attribute(self, collection, data):
         return self.database[collection].update(data).acknowledged
