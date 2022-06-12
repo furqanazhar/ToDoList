@@ -21,8 +21,8 @@ class Database:
     async def delete_document_by_id(self, collection, _id):
         return self.database[collection].delete_one({'_id': ObjectId(_id)}).acknowledged
 
-    async def delete_document_by_attribute(self, collection, data):
-        return self.database[collection].delete_many(data).acknowledged
+    async def delete_document_by_attribute(self, collection, key, value):
+        return self.database[collection].delete_many({key: value}).deleted_count
 
     async def get_document_by_id(self, collection, _id):
         return list(self.database[collection].find({'_id': ObjectId(_id)}, {'_id': 0}))

@@ -61,6 +61,29 @@ async def delete_note(note_id: str):
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
 
+@router.delete('/notes/{key}/{value}', response_description='Delete specific note by attribute', response_model=Note)
+async def delete_note(key: str, value: str):
+    try:
+        data = await db.delete_document_by_attribute(notes_collection, key, value)
+        result = None
+        if data > 0:
+            result = 'Successfully deleted ' + str(data) + ' resource'
+        else:
+            result = 'No resource found to delete'
+
+        payload = {
+            'message': 'Success',
+            'data': convert_response_to_json(result)
+        }
+        return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+    except Exception as ex:
+        payload = {
+            'message': 'Failed to delete resource',
+            'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
+
+
 @router.delete('/notes', response_description='Delete multiple notes', response_model=List[Note])
 async def delete_notes():
     pass
