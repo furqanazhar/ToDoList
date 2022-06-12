@@ -18,8 +18,8 @@ class Database:
     async def update_document_by_attribute(self, collection, data):
         return self.database[collection].update(data).acknowledged
 
-    async def delete_document_by_id(self, collection, data):
-        return self.database[collection].delete_one(data).acknowledged
+    async def delete_document_by_id(self, collection, _id):
+        return self.database[collection].delete_one({'_id': ObjectId(_id)}).acknowledged
 
     async def delete_document_by_attribute(self, collection, data):
         return self.database[collection].delete_many(data).acknowledged

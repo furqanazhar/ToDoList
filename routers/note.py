@@ -38,9 +38,27 @@ async def update_partial_note(note_id: str):
     pass
 
 
-@router.delete('/notes/{noteId}', response_description='Delete specific note', response_model=Note)
+@router.delete('/notes/{noteId}', response_description='Delete specific note by id', response_model=Note)
 async def delete_note(note_id: str):
-    pass
+    try:
+        data = await db.delete_document_by_id(notes_collection, note_id)
+        result = None
+        if data:
+            result = 'Successfully deleted resource'
+        else:
+            result = 'No resource found to delete'
+
+        payload = {
+            'message': result,
+            'data': convert_response_to_json(data)
+        }
+        return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+    except Exception as ex:
+        payload = {
+            'message': 'Failed to delete resource',
+            'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
 
 @router.delete('/notes', response_description='Delete multiple notes', response_model=List[Note])
