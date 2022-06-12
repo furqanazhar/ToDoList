@@ -80,3 +80,20 @@ async def get_note_by_id(note_id: str):
             'error': convert_response_to_json(ex)
         }
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
+
+
+@router.get('/notes/{attribute}', response_description='Get specific note by attribute', response_model=Note)
+async def get_note_by_attribute(attribute_key: str, attribute_value: str):
+    try:
+        data = await db.get_document_by_attribute(notes_collection, attribute_key, attribute_value)
+        payload = {
+            'message': 'Successfully retrieved resource',
+            'data': convert_response_to_json(data)
+        }
+        return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+    except Exception as ex:
+        payload = {
+            'message': 'Failed to retrieve resource',
+            'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)

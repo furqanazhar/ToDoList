@@ -27,8 +27,8 @@ class Database:
     async def get_document_by_id(self, collection, _id):
         return list(self.database[collection].find({'_id': ObjectId(_id)}, {'_id': 0}))
 
-    async def get_document_by_attribute(self, collection, data):
-        return self.database[collection].find(data)
+    async def get_document_by_attribute(self, collection, key, value):
+        return list(self.database[collection].find({key: value}, {'_id': 0}))
 
     async def get_all_documents(self, collection):
         return list(self.database[collection].find({}, {'_id': 0}))
