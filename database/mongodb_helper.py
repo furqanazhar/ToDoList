@@ -15,8 +15,8 @@ class Database:
     async def update_document_by_id(self, collection, _id, data):
         return self.database[collection].update_one({'_id': ObjectId(_id)}, {'$set': data}).acknowledged
 
-    async def update_document_by_attribute(self, collection, data):
-        return self.database[collection].update(data).acknowledged
+    async def update_document_by_attribute(self, collection, key, old_value, updated_value):
+        return self.database[collection].update_many({key: old_value}, {'$set': {key: updated_value}}).modified_count
 
     async def delete_document_by_id(self, collection, _id):
         return self.database[collection].delete_one({'_id': ObjectId(_id)}).acknowledged

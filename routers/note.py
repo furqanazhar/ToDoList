@@ -51,16 +51,32 @@ async def update_note_by_id(note_id: str, note: Note):
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
 
-@router.patch('/notes/{noteId}', response_description='Update partial note', response_model=Note)
-async def update_partial_note(note_id: str):
-    pass
+@router.put('/notes/{key}/{value}', response_description='Update notes by attribute', response_model=Note)
+async def update_note_by_attribute(key: str, current_value: str, new_value: str):
+    try:
+        data = await db.update_document_by_attribute(notes_collection, key, current_value, new_value)
+        if data > 0:
+            result = 'Successfully updated ' + str(data) + ' resource'
+        else:
+            result = 'Failed to update any resource'
+
+        payload = {
+            'message': 'Success',
+            'data': convert_response_to_json(result)
+        }
+        return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+    except Exception as ex:
+        payload = {
+            'message': 'Failed to update resource',
+            'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
 
 @router.delete('/notes/{noteId}', response_description='Delete specific note by id', response_model=Note)
 async def delete_note_by_id(note_id: str):
     try:
         data = await db.delete_document_by_id(notes_collection, note_id)
-        result = None
         if data:
             result = 'Successfully deleted resource'
         else:
@@ -83,7 +99,6 @@ async def delete_note_by_id(note_id: str):
 async def delete_note_by_attribute(key: str, value: str):
     try:
         data = await db.delete_document_by_attribute(notes_collection, key, value)
-        result = None
         if data > 0:
             result = 'Successfully deleted ' + str(data) + ' resource'
         else:
@@ -106,7 +121,6 @@ async def delete_note_by_attribute(key: str, value: str):
 async def delete_all_notes():
     try:
         data = await db.delete_all_documents(notes_collection)
-        result = None
         if data > 0:
             result = 'Successfully deleted ' + str(data) + ' resource'
         else:
