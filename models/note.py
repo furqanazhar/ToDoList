@@ -26,8 +26,8 @@ class Category(str, Enum):
 
 
 class Note(BaseModel):
-    name: str
-    description: str
+    name: str = 'Dummy'
+    description: str = 'Dummy'
     status: Status = Status.PENDING
     priority: Priority = Priority.NORMAL
     category: Category = Category.MISCELLANEOUS
