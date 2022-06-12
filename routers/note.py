@@ -1,14 +1,9 @@
-import sys
-
-from fastapi import APIRouter, Body, status, Depends
+from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
-from datetime import datetime
 from models.note import Note
 from utils.common import convert_response_to_json
 from typing import List
 from database.mongodb_helper import Database
-import json
-import traceback
 
 router = APIRouter()
 db = Database()
@@ -55,7 +50,19 @@ async def delete_notes():
 
 @router.get('/notes', response_description='Get all notes', response_model=List[Note])
 async def get_all_notes():
-    pass
+    try:
+        data = await db.get_all_documents(notes_collection)
+        payload = {
+            'message': 'Successfully retrieved resource',
+            'data': convert_response_to_json(data)
+        }
+        return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+    except Exception as ex:
+        payload = {
+            'message': 'Failed to retrieve resource',
+            'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
 
 @router.get('/notes/{noteId}', response_description='Get specific note', response_model=Note)
