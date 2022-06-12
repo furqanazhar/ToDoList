@@ -2,13 +2,18 @@ from fastapi import APIRouter, Body, status, Depends
 from datetime import datetime
 from models.note import Note
 from typing import List
+from database.mongodb_helper import Database
 
 router = APIRouter()
+db = Database()
+notes_collection = 'Notes'
 
 
-@router.post('/notes', response_description='Create a new note', response_model=Note)
+@router.post('/notes', response_description='Create a new note')
 async def create_note(note: Note):
-    pass
+    note = dict(note)
+    ack = await db.insert_document(notes_collection, note)
+    return ack
 
 
 @router.put('/notes/{noteId}', response_description='Update entire note', response_model=Note)
