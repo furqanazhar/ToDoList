@@ -1,5 +1,5 @@
-# ToDoNotes
-Python FastAPI framework to manage your ToDoNotes
+# ToDoList
+Python FastAPI framework to manage your ToDoList
 
 # Tested Environment
 Windows 11 Home
