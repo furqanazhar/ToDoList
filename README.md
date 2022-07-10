@@ -2,7 +2,7 @@
 Python FastAPI framework to manage your ToDoList
 
 # Tested Environment
-Windows 11 Home <br />
+Operating System : Windows 11 Home <br />
 VS Code : 1.69 <br />
 MongoDB Server : 5.0.3 <br />
 MongoDB Compass : 1.32.2 <br />
