@@ -9,8 +9,8 @@ class Database:
         self.database = self.client['ToDoNotes']
 
     async def insert_document(self, collection, data):
-        _id = self.database[collection].insert(data)
-        return self.database[collection].find_one({'_id': _id}, {'_id': False})
+        _id = self.database[collection].insert_one(data)
+        return self.database[collection].find_one({'_id': _id.inserted_id}, {'_id': False})
 
     async def update_document_by_id(self, collection, _id, data):
         return self.database[collection].update_one({'_id': ObjectId(_id)}, {'$set': data}).acknowledged
