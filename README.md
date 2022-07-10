@@ -13,7 +13,7 @@ Run below command in terminal after moving to project root directory
 ``pip install -r requirements.txt``
 
 # Start Web Server
-Run below command in terminal after moving to project root directory<br />
+Run below command in terminal after moving to project root directory<br /><br />
 ``python main.py``
 
 Open below link to starting using swagger and testing its features
