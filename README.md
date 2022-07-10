@@ -2,9 +2,19 @@
 Python FastAPI framework to manage your ToDoList
 
 # Tested Environment
-Windows 11 Home
+Operating System : Windows 11 Home <br />
+VS Code : 1.69 <br />
+MongoDB Server : 5.0.3 <br />
+MongoDB Compass : 1.32.2 <br />
+
+# Install Required Dependencies
+Run below command in terminal after moving to project root directory
+
+``pip install -r requirements.txt``
 
 # Start Web Server
-``http://localhost:8000/docs``
+Run below command in terminal after moving to project root directory<br /><br />
+``python main.py``
 
-Open above link to starting using swagger and testing its features
+Open below link to starting using swagger and testing its features<br />
+``http://localhost:8000/docs``
