@@ -16,5 +16,5 @@ Run below command in terminal after moving to project root directory
 Run below command in terminal after moving to project root directory<br /><br />
 ``python main.py``
 
-Open below link to starting using swagger and testing its features
+Open below link to starting using swagger and testing its features<br />
 ``http://localhost:8000/docs``
