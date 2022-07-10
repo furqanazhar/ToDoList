@@ -1,4 +1,6 @@
-from fastapi import APIRouter, status
+import json
+import traceback
+from fastapi import APIRouter, status, File, UploadFile
 from fastapi.responses import JSONResponse
 from models.note import Note
 from utils.common import convert_response_to_json
@@ -24,6 +26,42 @@ async def create_note(note: Note):
         payload = {
             'message': 'Failed to create resource',
             'error': convert_response_to_json(ex)
+        }
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
+
+
+@router.post('/notes/bulk', response_description='Create bulk of new notes from text file')
+async def upload_notes(file: UploadFile = File(...)):
+    try:
+        content = await file.read()
+        await file.close()
+        content = json.loads(content)
+        contentType = type(content)
+        buffer = []
+        if contentType == list:
+            for row in range(len(content)):
+                note = dict(content[row])
+                data = await db.insert_document(notes_collection, note)
+                buffer.append(data)
+        else:
+            payload = {
+                'message': 'Failed to create resource',
+                'error': convert_response_to_json('Invalid format')
+            }
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
+
+        payload = {
+            'message': f'Successfully created {len(content)} resource',
+            'data': convert_response_to_json(buffer)
+        }
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=payload)     
+
+    except:
+
+        error = traceback.format_exc()
+        payload = {
+            'message': 'Failed to create resource',
+            'error': convert_response_to_json(error)
         }
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=payload)
 
